@@ -33,13 +33,18 @@ Things you may want to cover:
  rails db:create
 
  rails server -p 3003
-
+ # 浏览器访问是否成功
  http://localhost:3003/
 
  # Gemfile添加
  gem 'bootstrap-sass'
-gem 'font-awesome-rails'
-gem 'sorcery'
+ gem 'font-awesome-rails'
+ gem 'sorcery'
+ 
+ # 安装
+ rails g  sorcery:install
+
+ rails generate sorcery:install user_activation reset_password  remember_me --only-submodules
 
  ```
 
