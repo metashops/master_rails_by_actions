@@ -49,19 +49,81 @@ Things you may want to cover:
  ```
 
 
+编写 User 模型
+rails g controller welcome
+
+从 model 开始
+
+用户注册和登录功能的开发
+
+Model 部分
+```
+class User < ApplicationRecord
+  authenticates_with_sorcery!
+
+  attr_accessor :password, :password_confirmation
+
+  validates_presence_of :email, massage: "email cannot be nil!"
+  validates :email, uniqueness: true
+
+  validates_presence_of :password,massage: "password cannot be empty" 
+    if: :need_validate_password
+  validates_presence_of :password_confirmation, ,massage: "Password confirmation cannot be empty"
+    if: :need_validate_password
+  validates_confirmation_of :password, massage: "password inconsistency"
+    if: :need_validate_password
+  validates_length_of :password,massage: "The minimum password is 6 digits", minimum: 6
+    if: :need_validate_password
+
+  private
+  def need_validate_password
+    self.new_record? || 
+    (!self.password.nil? || !self.password_confirmation.nil?)
+  end
 
 
+end
+
+```
+
+设置路由
+```
+Rails.application.routes.draw do
+  root 'welcome#index'
+
+  resources :users
+  resources :sessions
+end
+```
+
+controller
+users
+```
+class UsersController < ActionController
+
+	def new
+	end
+
+	def create
+	end
+
+end
+```
+session
+```
+class SessionsController < ActionController
+
+	def new
+	end
+
+	def create
+	end
+
+end
+```
 
 
-
-
-
-
-
-
-
-
-
+view
 
 
 
